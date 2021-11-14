@@ -20,7 +20,7 @@ Les modules utilisés sont:
 
 Après avoir configuré vos paremetres de config, d'environnement et de base de donnée.
 
-Vous pouvez lancer le server effectué un "npm install" à la racine du dossier.
+Vous pouvez lancer le serveur, effectuez un "npm install" à la racine du dossier.
 
 Puis un "nodemon server".
 
