@@ -16,6 +16,7 @@ Les modules utilisés sont:
 - jsonwebtoken
 - multer
 - mysql2
+- password-validator
 - sequelize
 
 Après avoir configuré vos paremetres de config, d'environnement et de base de donnée.

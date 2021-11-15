@@ -1,28 +1,28 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-// const passwordValidator = require("password-validator");
+const passwordValidator = require("password-validator");
 require("dotenv").config();
 const { User, Post } = require("../models");
-//----------------------------------------------------------------------------------------------------------------------
-//creation du schema
-// let schema = new passwordValidator();
-// schema
-//   .is()
-//   .min(8) //au moins 8 caractères
-//   .is()
-//   .max(20) // pas plus de 20 caractères
-//   .has()
-//   .uppercase() // au moins une minuscule
-//   .has()
-//   .lowercase() // au moins une majuscule
-//   .has()
-//   .digits(1) // au moins un chiffre
-//   .has()
-//   .not()
-//   .spaces() //pas d'espaces
-//   .is()
-//   .not()
-//   .oneOf(["Passw0rd", "Password123"]);
+
+// creation du schema
+let schema = new passwordValidator();
+schema
+  .is()
+  .min(8) //au moins 8 caractères
+  .is()
+  .max(20) // pas plus de 20 caractères
+  .has()
+  .uppercase() // au moins une minuscule
+  .has()
+  .lowercase() // au moins une majuscule
+  .has()
+  .digits(1) // au moins un chiffre
+  .has()
+  .not()
+  .spaces() //pas d'espaces
+  .is()
+  .not()
+  .oneOf(["Passw0rd", "Password123"]);
 
 const regexEmail =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -33,13 +33,13 @@ exports.signup = async (req, res, next) => {
   if (!regexEmail.test(email)) {
     return res.status(400).json({ error: "Email incorrect" });
   }
-  // if (!schema.validate(password)) {
-  //   res.status(400).json({
-  //     error:
-  //       "le mot de passe doit contenir au moins 8 caractères dont 1 chiffre, 1 lettre majuscule et 1 minuscule",
-  //   });
-  //   return;
-  // }
+  if (!schema.validate(password)) {
+    res.status(400).json({
+      error:
+        "le mot de passe doit contenir au moins 8 caractères dont 1 chiffre, 1 lettre majuscule",
+    });
+    return;
+  }
   const isFieldsEmpty = !email || !firstname || !lastname || !password;
 
   if (isFieldsEmpty) {
